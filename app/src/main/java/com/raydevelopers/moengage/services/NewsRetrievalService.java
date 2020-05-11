@@ -22,5 +22,6 @@ public class NewsRetrievalService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+
     }
 }

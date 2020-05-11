@@ -1,20 +1,21 @@
 package com.raydevelopers.moengage.viewmodels;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.raydevelopers.moengage.data.ApplicationConstants;
 import com.raydevelopers.moengage.data.News;
-import com.raydevelopers.moengage.repositories.AppRepository;
+import com.raydevelopers.moengage.network.NetworkResource;
 
 public class NewsViewModel extends ViewModel {
     private NewsResponseProcessor responseProcessor;
+    public MutableLiveData<News> newLiveData = new MutableLiveData<>();
+
     public NewsViewModel(NewsResponseProcessor responseProcessor) {
         this.responseProcessor = responseProcessor;
     }
 
-    public LiveData<News> fetchNews()
-    {
-       return (LiveData<News>) responseProcessor.getNews(ApplicationConstants.url,News.class);
+    public LiveData<NetworkResource> fetchNews() {
+        return responseProcessor.fetchNews();
     }
 }

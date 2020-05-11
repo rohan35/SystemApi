@@ -1,5 +1,8 @@
 package com.raydevelopers.moengage.dependencyInjector;
 
+import com.raydevelopers.moengage.NewsApplication;
+import com.raydevelopers.moengage.database.NewsDbOperationHelper;
+import com.raydevelopers.moengage.database.NewsReaderDbHelper;
 import com.raydevelopers.moengage.factories.NewsViewModelProviderFactory;
 import com.raydevelopers.moengage.repositories.AppRepository;
 import com.raydevelopers.moengage.viewmodels.NewsResponseProcessor;
@@ -23,10 +26,19 @@ public class DependencyProvider {
     }
     public NewsResponseProcessor getNewsResponseProcessor()
     {
-        return new NewsResponseProcessor(getAppRepository());
+        return new NewsResponseProcessor(getAppRepository(),getNewsDbOperationHelper());
     }
-    public AppRepository getAppRepository()
+    private NewsDbOperationHelper getNewsDbOperationHelper()
+    {
+       return new NewsDbOperationHelper(getNewsDbHelper());
+    }
+    private NewsReaderDbHelper getNewsDbHelper()
+    {
+        return new NewsReaderDbHelper(NewsApplication.getAppContext());
+    }
+    private AppRepository getAppRepository()
     {
         return new AppRepository();
     }
+
 }
